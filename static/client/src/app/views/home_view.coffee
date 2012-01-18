@@ -23,6 +23,10 @@ class exports.HomeView extends Backbone.View
 
   ### Functions ###
 
+  # Load data from server
+  fetchData: ->
+    @apps.fetch()
+
   # Grabs categories from server then display them as a list.
   fillApps: =>
     @appList.html null

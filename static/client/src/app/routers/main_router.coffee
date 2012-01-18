@@ -1,8 +1,22 @@
 class exports.MainRouter extends Backbone.Router
   routes :
     "home": "home"
+    "market": "market"
+
+  ## Route behaviors
 
   home: ->
-    $('#content').html app.views.home.render()
-    app.views.home.setListeners()
-    app.views.home.apps.fetch()
+    @loadView(app.views.home)
+
+  market: ->
+    @loadView(app.views.market)
+
+
+  ## functions
+
+  # Fill main content with view data
+  loadView: (view) ->
+    $('#content').html view.render()
+    view.setListeners()
+    view.fetchData()
+
