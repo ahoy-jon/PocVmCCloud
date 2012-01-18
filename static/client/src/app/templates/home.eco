@@ -1,0 +1,12 @@
+<ul id="menu">
+  <li><a id="home-button" href="#home">apps</a></li>
+  <li><a id="market-button" href="#market">market</a></li>
+</ul>
+
+<h1>Welcome to your cloud</h1>
+<h2>A lovely cosy place...</h2>
+
+<div id="app-list">
+  
+</div>
+

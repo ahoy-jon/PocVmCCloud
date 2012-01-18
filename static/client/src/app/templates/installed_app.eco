@@ -1,0 +1,2 @@
+<a href="apps/<%= @app.path %>" id="title"><%= @app.name %></a></p>
+<input type="submit" value="remove"></input>
