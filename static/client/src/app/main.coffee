@@ -17,8 +17,6 @@ $(document).ready ->
 
     if Backbone.history.getFragment() is ''
       app.routers.main.navigate 'home', true
-    #else
-    #  app.routers.main.navigate Backbone.history.getFragment(), true
 
       
   app.initialize()

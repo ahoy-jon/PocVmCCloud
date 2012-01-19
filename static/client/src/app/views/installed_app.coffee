@@ -31,5 +31,6 @@ class exports.InstalledAppRow extends BaseRow
 
   render: ->
     $(@el).html(template(app: @model))
+    @el.id = @model.slug
     @el
 

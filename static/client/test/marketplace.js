@@ -1,62 +1,66 @@
+(function() {
+  var waits;
+
+  waits = function(callback, time) {
+    var func;
+    func = function() {
+      return callback();
+    };
+    return setTimeout(func, time);
+  };
 
   describe('Navigation', function() {
-    it('When I display home page', function() {
-      return $("#home-button").click();
+    it('When I display home page', function(done) {
+      app.routers.main.navigate("home", true);
+      return waits(done, 300);
     });
-    it('should displays 0 app installed', function() {
-      return expect($("app").length).to.be(0);
+    it('Then it displays 0 app installed', function() {
+      return expect($(".installed-app").length).to.be(0);
     });
-    it('When I display marketplace page', function() {
-      return $("#market-button").click();
+    it('When I display marketplace page', function(done) {
+      app.routers.main.navigate("market", true);
+      return waits(done, 300);
     });
-    return it('should displays 2 apps available', function() {
-      return expect($(".available-app").length).to.be(0);
+    return it('Then it displays 2 apps available', function() {
+      return expect($(".app").length).to.be(2);
     });
   });
 
   describe('Installation', function() {
-    describe('When I click on hello 01 installation', function() {
-      return it('should displayed a message to tell me that installation is done', function() {
-        return expect(false).to.be.ok();
-      });
+    it('When I click on hello 01 installation', function(done) {
+      $("#hello-world-01 .button").click();
+      return waits(done, 300);
     });
-    describe('When I display home page', function() {
-      it('should displays 1 app installed', function() {
-        return expect(false).to.be.ok();
-      });
-      return it('should displays a link to the application', function() {
-        return expect(false).to.be.ok();
-      });
+    it('Then it displays a message to tell me that installation is done', function() {
+      return expect($("#hello-world-01 .info-text").html()).to.be("Installed!");
     });
-    return describe('When I display marketplace page', function() {
-      it('should displays 1 apps available', function() {
-        return expect(false).to.be.ok();
-      });
-      return it('should displays first app as installed', function() {
-        return expect(false).to.be.ok();
-      });
+    it('When I display home page', function(done) {
+      app.routers.main.navigate("home", true);
+      return waits(done, 600);
+    });
+    it('Then it displays 1 app installed', function() {
+      return expect($(".installed-app").length).to.be(1);
+    });
+    return it('And it displays a link to the application', function() {
+      return expect($("#hello-world-01 a").length).to.be(1);
     });
   });
 
   describe('Uninstallation', function() {
-    describe('When I display home page', function() {
-      return it('should displays 1 app installed', function() {
-        return expect(false).to.be.ok();
-      });
+    it('And I click on first app remove button', function(done) {
+      $("#hello-world-01 .button").click();
+      return waits(done, 600);
     });
-    describe('When I click on first app remove button', function() {
-      return it('a message is displayed to tell me that removal is done', function() {
-        return expect(false).to.be.ok();
-      });
+    it('Then a message is displayed to tell me that removal is done', function() {
+      return expect($("#hello-world-01 .info-text").html()).to.be("Removed!");
     });
-    describe('When I display marketplace page', function() {
-      return it('should displays 2 apps available', function() {
-        return expect(false).to.be.ok();
-      });
+    it('When I display home page', function(done) {
+      app.routers.main.navigate("home", true);
+      return waits(done, 600);
     });
-    return describe('When I display home page', function() {
-      return it('should displays 0 app installed', function() {
-        return expect(false).to.be.ok();
-      });
+    return it('Then it displays 0 apps installed', function() {
+      return expect($(".installed-app").length).to.be(1);
     });
   });
+
+}).call(this);
