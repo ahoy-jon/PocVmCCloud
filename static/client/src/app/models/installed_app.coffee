@@ -1,4 +1,7 @@
-class exports.InstalledApp extends Backbone.Model
+BaseModel = require("models/models").BaseModel
+
+# Describes an application installed in mycloud.
+class exports.InstalledApp extends BaseModel
 
   url: '/api/installed-apps/'
 
@@ -8,5 +11,3 @@ class exports.InstalledApp extends Backbone.Model
     @name = app.name
     @path = "/#{app.slug}/"
     
-  isNew: () ->
-    @id is undefined

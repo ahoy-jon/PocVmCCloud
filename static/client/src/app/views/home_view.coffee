@@ -14,12 +14,10 @@ class exports.HomeView extends Backbone.View
     super()
 
     @apps = new AppCollection()
- 
-  ### Listeners ###
-
-  setListeners: =>
     @apps.bind('reset', @fillApps)
 
+ 
+  ### Listeners ###
 
   ### Functions ###
 
@@ -29,6 +27,7 @@ class exports.HomeView extends Backbone.View
 
   # Grabs categories from server then display them as a list.
   fillApps: =>
+    @appList = $("#app-list")
     @appList.html null
     @apps.forEach (app) =>
       row = new AppRow app

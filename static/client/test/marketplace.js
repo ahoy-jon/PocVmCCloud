@@ -1,16 +1,16 @@
 
   describe('Navigation', function() {
-    describe('When I display home page', function() {
-      $("#home-button").click();
-      return it('should displays 0 app installed', function() {
-        return $(".app").length.to.be(0);
-      });
+    it('When I display home page', function() {
+      return $("#home-button").click();
     });
-    return describe('When I display marketplace page', function() {
-      $("#market-button").click();
-      return it('should displays 2 apps available', function() {
-        return $(".available-app").length.to.be(0);
-      });
+    it('should displays 0 app installed', function() {
+      return expect($("app").length).to.be(0);
+    });
+    it('When I display marketplace page', function() {
+      return $("#market-button").click();
+    });
+    return it('should displays 2 apps available', function() {
+      return expect($(".available-app").length).to.be(0);
     });
   });
 

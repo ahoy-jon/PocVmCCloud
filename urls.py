@@ -7,12 +7,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # url(r'^$', 'gate.views.home', name='home'),
     url(r'^', include('gate.core.urls')),
-    url(r'^api/installed-apps', include('gate.home.urls')),
+    url(r'^api/installed-apps/', include('gate.home.urls')),
+    url(r'^api/market/', include('gate.market.urls')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^static/(?P<path>.*)$', 'django.views.static.serve',
-    #    {'document_root': "/home/gelnior/projets/mycloud/gate/static", 
-    #    'show_indexes': True}),
 )
 urlpatterns += staticfiles_urlpatterns()

@@ -1,5 +1,8 @@
 from django.conf.urls.defaults import patterns, url
 
-urlpatterns = patterns('home.views',
-    url(r'^/$', 'installed_apps'),
+from gate.home.views import InstalledAppsResource, InstalledAppResource
+
+urlpatterns = patterns('',
+    url(r'^$', InstalledAppsResource()),
+    url(r'^(?P<slug>[a-z0-9-]+)/$', InstalledAppResource()),
 )

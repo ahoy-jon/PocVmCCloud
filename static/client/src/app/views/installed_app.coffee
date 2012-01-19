@@ -1,20 +1,35 @@
-appTemplate = require('../templates/installed_app')
+template = require('../templates/installed_app')
+BaseRow = require('views/row').BaseRow
 
-class exports.InstalledAppRow extends Backbone.View
+class exports.InstalledAppRow extends BaseRow
 
-  tagName: "div"
   className: "installed-app"
 
-  constructor: (@model) ->
-    super()
-    
-    @id = @model.slug
-    @model.view = @
+  events:
+    "click .button": "onRemoveClicked"
 
-  remove: ->
-    $(@el).remove()
+  constructor: (@model) ->
+    super(@model)
+
+  # Events 
+
+  onRemoveClicked: (event) =>
+    event.preventDefault()
+    @removeApp()
+
+  # Functions
+
+  removeApp: ->
+    @$(".info-text").html "Removing..."
+    $.ajax
+     type: 'DELETE'
+     url: "/api/installed-apps/#{@id}/"
+     success: =>
+       @$(".info-text").html "Removed!"
+     error: =>
+       @$(".info-text").html "Remove failed."
 
   render: ->
-    $(@el).html(appTemplate(app: @model))
+    $(@el).html(template(app: @model))
     @el
 

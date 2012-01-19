@@ -1,15 +1,17 @@
 describe 'Navigation', ->
-  describe 'When I display home page', ->
-    $("#home-button").click()
 
-    it 'should displays 0 app installed', () ->
-      $(".app").length.to.be(0)
+    it 'When I display home page', ->
+      $("#home-button").click()
 
-  describe 'When I display marketplace page', ->
-    $("#market-button").click()
+    it 'should displays 0 app installed', ->
+      expect($("app").length).to.be(0)
 
-    it 'should displays 2 apps available', () ->
-      $(".available-app").length.to.be(0)
+    it 'When I display marketplace page', ->
+      $("#market-button").trigger("click")
+
+    it 'should displays 2 apps available',  ->
+      expect($(".available-app").length).to.be(2)
+
 
 describe 'Installation',  ->
 
@@ -19,7 +21,8 @@ describe 'Installation',  ->
 
   describe 'When I display home page', ->
     it 'should displays 1 app installed', () ->
-      expect(false).to.be.ok()
+      expect($("app").length).to.be(0)
+
     it 'should displays a link to the application', () ->
       expect(false).to.be.ok()
 
