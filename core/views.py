@@ -21,5 +21,9 @@ class RESTResource(object):
 
 # Simple views that return index page.
 def home(request):
-    return render_to_response('index.html')
+    return render_to_response('index.html', { "test": False })
+
+# Simple views that return index page and launch UI BDD specs.
+def home_tests(request):
+    return render_to_response('index.html', { "test": True })
 

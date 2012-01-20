@@ -11,6 +11,7 @@
   <script src="/static/client/build/web/js/app.js"></script>
   <script>require('main');</script>
 
+  {% if test %}
   <script src="/static/client/src/vendor/expect.js"></script>
   <script src="/static/client/src/vendor/mocha.js"></script>
   <script>mocha.setup('bdd')</script>
@@ -21,19 +22,26 @@
         .run()
     })
   </script>
+  {% endif %}  
 </head>
+
 <body>
   <h3>MyCloud</h3>
   <ul id="menu">
     <li><a id="home-button" href="#home">apps</a></li>
     <li><a id="market-button" href="#market">market</a></li>
   </ul>
-  <div id="content"></div>  
+  <div id="content"></div>
+
+  {% if test %}
   <hr />
   <div id="mocha">
     <h1>
       Mocha tests
     </h1>
   </div>
+  {% endif %}  
+
 </body>
+
 </html>
