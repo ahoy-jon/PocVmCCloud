@@ -113,7 +113,7 @@ INSTALLED_APPS = (
     'gate.core',
     'gate.home',
     'gate.market',
-    'gate.user',
+    'gate.utils',
 )
 
 # A sample logging configuration. The only tangible logging
