@@ -1,5 +1,6 @@
 from gate.settings import NGINX_CONF_FILE
-from home.models import InstalledApp as App
+from gate.home.models import InstalledApp as App
+
 
 START_TOKEN = "### App List"
 END_TOKEN = "### End App List"
@@ -85,3 +86,14 @@ def add_apps_to_config_file():
             linesToAdd.append("{}{};".format(APP_LINE_PREFIX, app.slug))
 
         add_lines(NGINX_CONF_FILE, linesToAdd, startIndex)
+
+
+def rebuild_config_file():
+    '''
+    Clear current application list set in Nginx config file and replace it with the 
+    list of installed app.
+    '''
+
+    delete_apps_from_config_file()
+    add_apps_to_config_file()
+

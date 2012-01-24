@@ -1,3 +1,5 @@
+import subprocess
+
 from django.utils.simplejson import dumps, loads
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
@@ -8,6 +10,18 @@ from django.shortcuts import get_object_or_404
 
 from gate.core.views import RESTResource
 from gate.home.models import InstalledApp
+from gate.utils.config_files import rebuild_config_file
+
+def reload_nginx():
+    # Rebuild Nginx configuration
+    rebuild_config_file()
+    try:
+         subprocess.check_call(["/etc/init.d/nginx", "reload"])
+    except subprocess.CalledProcessError, error:
+         print "Nginx restart failed"
+         print error.message
+         app.delete()
+         return HttpResponse(status=500) 
 
 
 class InstalledAppsResource(RESTResource):
@@ -56,6 +70,8 @@ class InstalledAppsResource(RESTResource):
         '''
         Create a new application from posted informations.
         '''
+
+        # Create app in DB
         app = self.parse(request.raw_post_data)
         if not app:
             return HttpResponseBadRequest()
@@ -63,6 +79,8 @@ class InstalledAppsResource(RESTResource):
         dbApp = InstalledApp.objects.filter(slug=app.slug)
         if not dbApp:
           app.save()
+        
+        reload_nginx()
 
         return HttpResponse(status=201) # HTTP 201 Created
 
@@ -79,5 +97,8 @@ class InstalledAppResource(RESTResource):
 
         app = get_object_or_404(InstalledApp, slug=slug)
         app.delete()
+
+        reload_nginx()
+
         return HttpResponse(status=200)
 
