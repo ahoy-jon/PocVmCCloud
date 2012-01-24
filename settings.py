@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'gate.core',
     'gate.home',
     'gate.market',
+    'gate.user',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -137,3 +138,6 @@ LOGGING = {
         },
     }
 }
+
+
+NGINX_CONF_FILE="/home/frankrousseau/test/nginx.conf"
