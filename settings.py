@@ -11,8 +11,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'gate',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': '/home/mycloud/gate/db/gate.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -59,7 +59,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    '/home/frankrousseau/mycloud/gate/static',
+    '/home/mycloud/gate/static',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -94,7 +94,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'gate.urls'
 
 TEMPLATE_DIRS = (
-    "/home/frankrousseau/mycloud/gate/templates"
+    "/home/mycloud/gate/templates"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
