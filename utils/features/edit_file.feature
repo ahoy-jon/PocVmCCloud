@@ -11,9 +11,9 @@ Feature: Set installed app list from db inside nginx configuration file
         Then I dont see app anymore in configuration file
 
     Scenario: Add lines to a file
-        Given I have a test file open with 5 lines
+        Given I have a test file open with 3 lines
         When I add two lines at given index
-        Then The file contains 7 lines
+        Then The file contains 5 lines
         And my lines appears at given index
 
     Scenario: Add application to nginx configuration file

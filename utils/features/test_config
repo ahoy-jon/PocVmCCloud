@@ -1,0 +1,6 @@
+
+ ### App List
+     passenger_base_uri /apps/hello-world-01;
+     passenger_base_uri /apps/hello-world-02;
+ ### End App List
+

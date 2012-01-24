@@ -7,15 +7,19 @@ from settings import NGINX_CONF_FILE
 
 from home.models import InstalledApp as App
 
+TEST_FILE = "./utils/features/test"
 
-@step(u'Given I have a test file open with 5 lines')
-def given_i_have_a_test_file_open_with_5_lines(step):
-    world.file = open("./utils/features/test")
-    assert_equals(len(world.file.readlines()), 5)
+
+@step(u'I have a test file open with (\d) lines')
+def given_i_have_a_test_file_open_with_5_lines(step, nbline):
+    file = open(TEST_FILE, "r")
+    assert_equals(len(file.readlines()), int(nbline))
+    file.close()
 
 @step(u'When I delete line from 2 to 4')
 def when_i_delete_line_from_2_to_4(step):
-    utils.delete_lines(world.file, 2, 4)
+    utils.delete_lines(TEST_FILE, 2, 4)
+    world.file = open(TEST_FILE, "r")
 
 @step(u'Then The file contains (\d) lines')
 def then_the_file_contains_3_lines(step, nbline):
@@ -33,29 +37,34 @@ def when_i_delete_app_list_in_configuration_file(step):
 @step(u'Then I dont see app anymore in configuration file')
 def then_i_don_t_see_app_anymore_in_configuration_file(step):
     isAppList = False
+    isList = False
     nbApp = 0
 
     for line in world.file.readlines():
-        if line == util.START_TOKEN:
+        if utils.START_TOKEN in line:
             isAppList = True
-        elif line == util.END_TOKEN:
+            isList = True
+        elif utils.END_TOKEN in line:
             isAppList = False
         elif isAppList:
             nbApp = nbApp + 1
 
+    assert_equals(isList, True)
     assert_equals(nbApp, 0)
 
 
 @step(u'When I add two lines at given index')
 def when_i_add_two_lines_at_given_index(step):
     world.lines = ["new line 1", "new line 2"]
-    utils.add_lines(world.file, world.lines, 2)
+    utils.add_lines(TEST_FILE, world.lines, 2)
+    world.file = open(TEST_FILE)
 
 @step(u'And my lines appears at given index')
 def and_my_lines_appears_at_given_index(step):
-    file_lines = world.file.readlines()
-    assert_equals(file_lines[2], world.lines[0])
-    assert_equals(file_lines[3], world.lines[1])
+    file = open(TEST_FILE, "r")
+    file_lines = file.readlines()
+    assert_equals(file_lines[2], world.lines[0] + "\n")
+    assert_equals(file_lines[3], world.lines[1] + "\n")
 
 @step(u'And I have two applications marked as installed in my DB')
 def and_i_have_two_applications_marked_as_installed_in_my_db(step):
@@ -73,6 +82,20 @@ def when_i_set_application_list_with_installed_application_from_db(step):
 
 
 @step(u'Then Nginx configuration file has my two apps marked inside it')
-def then_nginx_configuration_file_has_my_two_apps_marked_inside_it(step):
-    assert False, 'This step must be implemented'
+def then_nginx_configuration_file_has_my_two_apps_marked_inside_it(step):    
+    isAppList = False
+    isList = False
+    nbApp = 0
+
+    for line in world.file.readlines():
+        if utils.START_TOKEN in line:
+            isAppList = True
+            isList = True
+        elif utils.END_TOKEN in line:
+            isAppList = False
+        elif isAppList and "hello-world-" in line:
+            nbApp = nbApp + 1
+
+    assert_equals(isList, True)
+    assert_equals(nbApp, 2)
 
