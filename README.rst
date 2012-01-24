@@ -10,8 +10,8 @@ Puis dans le dossier du portail lancer la commande suivante et suivre les instru
 
     python manage.py syncdb
 
-Enfin démarrer le serveur par la ligne
+Enfin démarrer le serveur par la ligne :
 
     python manage.py runserver
 
-Pour consulter le portail sur http://localhost:8000/
+Pour consulter le portail depuis un navigateur sur l'URL http://localhost:8000/ .
