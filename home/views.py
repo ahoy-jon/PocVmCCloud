@@ -12,7 +12,7 @@ from gate.core.views import RESTResource
 from gate.home.models import InstalledApp
 from gate.utils.config_files import rebuild_config_file
 
-def reload_nginx():
+def reload_nginx(app=None):
     # Rebuild Nginx configuration
     rebuild_config_file()
     try:
@@ -80,9 +80,12 @@ class InstalledAppsResource(RESTResource):
         if not dbApp:
           app.save()
         
-        reload_nginx()
+        response = reload_nginx(app=app)
 
-        return HttpResponse(status=201) # HTTP 201 Created
+        if response:
+            return response
+        else:
+            return HttpResponse(status=201)
 
 
 class InstalledAppResource(RESTResource):
@@ -98,7 +101,10 @@ class InstalledAppResource(RESTResource):
         app = get_object_or_404(InstalledApp, slug=slug)
         app.delete()
 
-        reload_nginx()
+        response = reload_nginx()
 
-        return HttpResponse(status=200)
+        if response:
+            return response
+        else:
+            return HttpResponse(status=200)
 
