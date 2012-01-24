@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': '/home/mycloud/gate/db/gate.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/frankrousseau/mycloud/gate/db/gate.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -140,4 +140,4 @@ LOGGING = {
 }
 
 
-NGINX_CONF_FILE="/home/frankrousseau/test/nginx.conf"
+NGINX_CONF_FILE="./utils/features/test_config"

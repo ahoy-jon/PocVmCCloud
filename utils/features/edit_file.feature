@@ -8,12 +8,12 @@ Feature: Set installed app list from db inside nginx configuration file
     Scenario: Delete lines from nginx configuration file
         Given I open test nginx configuration file
         When I delete app list in configuration file
-        Then I don't see app anymore in configuration file
+        Then I dont see app anymore in configuration file
 
     Scenario: Add lines to a file
         Given I have a test file open with 5 lines
         When I add two lines at given index
-        Then there is two more lines
+        Then The file contains 7 lines
         And my lines appears at given index
 
     Scenario: Add application to nginx configuration file
