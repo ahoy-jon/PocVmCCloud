@@ -34,7 +34,7 @@ def add_lines(filepath, lines, index):
     i = index 
     for line in lines:
         if line:
-            filelines.insert(i, "{}\n".format(line))
+            filelines.insert(i, "%s\n" % line)
         i = i + 1
 
     file = open(filepath, "w")
@@ -55,14 +55,14 @@ def delete_apps_from_config_file():
     for line in file.readlines():        
 
         if START_TOKEN in line:
-            starIndex = index
+            startIndex = index
         elif END_TOKEN in line:
             endIndex = index 
 
         index = index + 1
     file.close()
 
-    delete_lines(NGINX_CONF_FILE, startIndex + 2, endIndex)
+    delete_lines(NGINX_CONF_FILE, startIndex + 1, endIndex)
 
 
 def add_apps_to_config_file():
@@ -83,7 +83,8 @@ def add_apps_to_config_file():
     if startIndex > 0:
         linesToAdd = []
         for app in App.objects.all():
-            linesToAdd.append("{}{};".format(APP_LINE_PREFIX, app.slug))
+            if app.slug:
+                linesToAdd.append("%s%s;" % (APP_LINE_PREFIX, app.slug))
 
         add_lines(NGINX_CONF_FILE, linesToAdd, startIndex)
 
